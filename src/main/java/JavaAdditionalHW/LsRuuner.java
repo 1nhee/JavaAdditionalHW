@@ -20,7 +20,7 @@ public class LsRuuner {
 
 	public static void main(String[] args) {
 
-		Runner myRunner = new Runner();
+		LsRuuner myRunner = new LsRuuner();
 		myRunner.run(args);
 
 	}
