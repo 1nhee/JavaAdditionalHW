@@ -13,7 +13,7 @@ public class LsRuuner {
 
 	String input_path;
 	boolean list;
-	boolean absolute;
+	boolean information;
 	boolean lastModified;
 	boolean size;
 	boolean help;
@@ -49,8 +49,8 @@ public class LsRuuner {
 		 */
 			
 			//absolute
-			if(absolute) {
-				System.out.println("This is result of 'a' option");
+			if(information) {
+				System.out.println("This is result of 'l' option");
 				System.out.println("These are absolute pathes in the path");
 				
 				 for(int i = 0; i < file.listFiles().length; i++) {
@@ -60,7 +60,7 @@ public class LsRuuner {
 				 System.out.println(" ");
 				//list all file name
 			}else if(list) {
-				System.out.println("This is result of 'l' option");
+				System.out.println("This is result of 'a' option");
 				System.out.println("This is list of files in the path");
 				
 				for(int i = 0; i < file.listFiles().length; i++) {
@@ -72,17 +72,28 @@ public class LsRuuner {
 				System.out.println("This is result of 'm' option");
 				System.out.println("These are the date that the file is modifieded lastly in the path");
 				
+				
+				
 				for(int i = 0; i < file.listFiles().length; i++) {
-					System.out.println(file.lastModified());
+					
+					long currTimeModified = file.lastModified();
+					
+					if(currTimeModified > prevTimeModified);
+					
+					long prevTimeModified = currTimeModified;
 				}
 				
 				System.out.println(" ");
-			}else if(size) {
+			}else if(size) { //the difference between mb and m G K
 				System.out.println("This is result of 's' option");
 				System.out.println("These are the size of files");
 				
 				for(int i = 0; i < file.listFiles().length; i++) {
-					System.out.println(file.length());
+					if(file.length()) {
+						
+						System.out.println();
+					}
+					
 				}
 				System.out.println(" ");
 			}
@@ -98,9 +109,9 @@ public class LsRuuner {
 			CommandLine cmd = parser.parse(options, args);
 
 			input_path = cmd.getOptionValue("i");
-			list = cmd.hasOption("l");
-			absolute = cmd.hasOption("a");
-			lastModified = cmd.hasOption("m");
+			information = cmd.hasOption("l");
+			list = cmd.hasOption("a");
+			lastModified = cmd.hasOption("t");
 			size = cmd.hasOption("s");
 			help = cmd.hasOption("h");
 
@@ -125,20 +136,20 @@ public class LsRuuner {
 						.build());
 		
 		// absolute path
-		options.addOption(Option.builder("a").longOpt("absolute_path")
-						.desc("display an abslute path of a directory or a file")
+		options.addOption(Option.builder("l").longOpt("information")
+						.desc("display  displaying Unix file types, permissions, number of hard links, owner, group, size, last-modified date and filename")
 						.argName("absolute path name")
 						.build());
 
 		
 		// list all
-		options.addOption(Option.builder("l").longOpt("list")
+		options.addOption(Option.builder("a").longOpt("list")
 						.desc("Display list of files in the directory")
 						.argName("list")
 						.build());
 		
 		// last modified
-		options.addOption(Option.builder("m").longOpt("last_modified")
+		options.addOption(Option.builder("t").longOpt("last_modified")
 				.desc("Display the date the file is modified lastly")
 				.argName("last modified")
 				.build());
