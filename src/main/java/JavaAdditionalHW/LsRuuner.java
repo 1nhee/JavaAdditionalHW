@@ -84,16 +84,12 @@ public class LsRuuner {
 				}
 				
 				System.out.println(" ");
-			}else if(size) { //the difference between mb and m G K
+			}else if(size) {
 				System.out.println("This is result of 's' option");
 				System.out.println("These are the size of files");
 				
 				for(int i = 0; i < file.listFiles().length; i++) {
-					if(file.length()) {
-						
-						System.out.println();
-					}
-					
+					System.out.println(file.length());
 				}
 				System.out.println(" ");
 			}
