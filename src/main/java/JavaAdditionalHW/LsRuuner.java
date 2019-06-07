@@ -2,6 +2,7 @@ package JavaAdditionalHW;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -37,68 +38,73 @@ public class LsRuuner {
 		}
 
 		// path is required (necessary) data so no need to have a branch.
-		System.out.println("This is result of 'p' option");
+		System.out.println("This is result of 'i' option");
 		System.out.println("You put this path: " + input_path);
 
 		// TODO show the number of files in the path
 
-		File file = new File(input_path);
-		/*
-		 * System.out.println(file.getAbsolutePath());
-		 * System.out.println(file.getName());
-		 * System.out.println(file.listFiles().length);
-		 */
+		File dirFile = new File(input_path);
+		File[] fileList = dirFile.listFiles();
+		ArrayList<String> fileNames = new ArrayList<String>();
+		ArrayList<String> filePaths = new ArrayList<String>();
+		
+		for(File toGet: fileList) {
+		  if(toGet.isFile()) {
+		    String tempPath = toGet.getParent();
+		    filePaths.add(tempPath);
+		    
+		    String tempFileName = toGet.getName();
+		    fileNames.add(tempFileName);
+		  }
+		}
 
 		if (listUnSorted) {
 			System.out.println("This is result of 'f' option");
-			System.out.println("This is list of unsorted files in the path");
+			System.out.println("This is list of unsorted files in the path\n");
 			System.out.println(" ");
 
-			for (int i = 0; i < file.listFiles().length; i++) {
-				System.out.println(file.getName());
+			for (String toPrint : fileNames) {
+				System.out.println(toPrint);
 			}
+			
 			System.out.println(" ");
 
 		} else if (listSorted) {
 			System.out.println("This is result of 'a' option");
-			System.out.println("This is list of sorted files in the path");
-			System.out.println(" ");
+			System.out.println("This is list of sorted files in the path\n");
 
 			ArrayList<String> toSort = new ArrayList<String>();
+			Collections.sort(fileNames); 
 
-			for (int i = 0; i < file.listFiles().length; i++) {
-				toSort.add(file.getName());
+			for (String toPrint : fileNames) {
+				System.out.println(toPrint);
 			}
 			System.out.println(" ");
 
 		} else if (lastModified) {
 			System.out.println("This is result of 'm' option");
-			System.out.println("These are the date that the file is modifieded lastly in the path");
-			System.out.println(" ");
+			System.out.println("These are the date that the file is modifieded lastly in the path\n");
 
-			for (int i = 0; i < file.listFiles().length; i++) {
+			for (File toCheck : fileList) {
 
-				long currTimeModified = file.lastModified();
-
-				if (currTimeModified > prevTimeModified)
-					;
-
-				long prevTimeModified = currTimeModified;
+				long currTimeModified = toCheck.lastModified();
+				
+				System.out.println(currTimeModified);
+				
 			}
 
 			System.out.println(" ");
 		} else if (size) {
 			System.out.println("This is result of 't' option");
-			System.out.println("These are the size of files");
-			System.out.println(" ");
+			System.out.println("These are the size of files\n");
 
-			for (int i = 0; i < file.listFiles().length; i++) {
-				System.out.println(file.getName() + " " + file.length());
+			for (File toCheck : fileList) {
+				System.out.println(toCheck.getName() + " " + toCheck.length());
 			}
 			System.out.println(" ");
 		}
 
-		System.out.println("Your program is terminated. Your program is done!");
+		System.out.println("\n\nYour program is terminated. Your program is done!");
 	}
 
 	private boolean parseOptions(Options options, String[] args) {
