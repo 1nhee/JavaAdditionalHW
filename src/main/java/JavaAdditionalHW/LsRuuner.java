@@ -2,7 +2,9 @@ package JavaAdditionalHW;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -39,7 +41,7 @@ public class LsRuuner {
 
 		// path is required (necessary) data so no need to have a branch.
 		System.out.println("This is result of 'i' option");
-		System.out.println("You put this path: " + input_path);
+		System.out.println("You put this path: " + input_path +"\n");
 
 		// TODO show the number of files in the path
 
@@ -59,7 +61,7 @@ public class LsRuuner {
 		}
 
 		if (listUnSorted) {
-			System.out.println("This is result of 'f' option");
+			System.out.println("\nThis is result of 'f' option");
 			System.out.println("This is list of unsorted files in the path\n");
 			System.out.println(" ");
 
@@ -69,42 +71,58 @@ public class LsRuuner {
 			
 			System.out.println(" ");
 
-		} else if (listSorted) {
-			System.out.println("This is result of 'a' option");
+		} 
+		
+		if (listSorted) {
+			System.out.println("\nThis is result of 'a' option");
 			System.out.println("This is list of sorted files in the path\n");
 
-			ArrayList<String> toSort = new ArrayList<String>();
-			Collections.sort(fileNames); 
+			Collections.sort(fileNames);
 
-			for (String toPrint : fileNames) {
-				System.out.println(toPrint);
-			}
+	        for (String toCheck : fileNames) {
+	        	System.out.println(toCheck);
+	        }
+
 			System.out.println(" ");
 
-		} else if (lastModified) {
-			System.out.println("This is result of 'm' option");
+		} 
+		
+		if (lastModified) {
+			System.out.println("\nThis is result of 'm' option");
 			System.out.println("These are the date that the file is modifieded lastly in the path\n");
 
+			ArrayList<Long> sortedTime = new ArrayList<Long>();
+			
 			for (File toCheck : fileList) {
-
 				long currTimeModified = toCheck.lastModified();
-				
-				System.out.println(currTimeModified);
-				
+				sortedTime.add(currTimeModified);
 			}
+			
+			Collections.sort(sortedTime);
 
+			for (long toCheckTime: sortedTime) {
+				for (File toCheck : fileList) {
+					long currTimeModified = toCheck.lastModified();
+					if(toCheckTime == currTimeModified) {
+						System.out.println(toCheck.getName());
+					}
+				}
+			}
+			
 			System.out.println(" ");
-		} else if (size) {
-			System.out.println("This is result of 't' option");
+		} 
+		
+		if (size) {
+			System.out.println("\nThis is result of 't' option");
 			System.out.println("These are the size of files\n");
 
 			for (File toCheck : fileList) {
-				System.out.println(toCheck.getName() + " " + toCheck.length());
+				System.out.println("The size of this file \'" + toCheck.getName() + "\' is " + toCheck.length());
 			}
 			System.out.println(" ");
 		}
 
-		System.out.println("\n\nYour program is terminated. Your program is done!");
+		System.out.println("\n\nYour program is terminated. Your program is done!\nIf you need information of the options, put H which is help option");
 	}
 
 	private boolean parseOptions(Options options, String[] args) {
@@ -115,8 +133,8 @@ public class LsRuuner {
 			CommandLine cmd = parser.parse(options, args);
 
 			input_path = cmd.getOptionValue("i");
-			listUnSorted = cmd.hasOption("l");
-			listSorted = cmd.hasOption("f");
+			listUnSorted = cmd.hasOption("f");
+			listSorted = cmd.hasOption("a");
 			lastModified = cmd.hasOption("t");
 			size = cmd.hasOption("h");
 			help = cmd.hasOption("H");
@@ -169,3 +187,4 @@ public class LsRuuner {
 	}
 
 }
+
