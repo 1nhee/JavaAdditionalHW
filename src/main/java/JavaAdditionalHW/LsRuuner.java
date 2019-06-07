@@ -48,18 +48,16 @@ public class LsRuuner {
 		 * System.out.println(file.listFiles().length);
 		 */
 			
-			//absolute
-			if(information) {
-				System.out.println("This is result of 'l' option");
-				System.out.println("These are absolute pathes in the path");
+			if(listUnSorted) {
+				System.out.println("This is result of 'a' option");
+				System.out.println("This is list of files in the path");
 				
-				 for(int i = 0; i < file.listFiles().length; i++) {
-					 System.out.println(file.getAbsolutePath());
-				 } 
-				 
-				 System.out.println(" ");
-				//list all file name
-			}else if(list) {
+				for(int i = 0; i < file.listFiles().length; i++) {
+					System.out.println(file.getName());
+				}
+				System.out.println(" ");
+				
+			}else if(listSorted) {
 				System.out.println("This is result of 'a' option");
 				System.out.println("This is list of files in the path");
 				
