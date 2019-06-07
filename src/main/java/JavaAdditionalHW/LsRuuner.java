@@ -122,7 +122,7 @@ public class LsRuuner {
 			System.out.println(" ");
 		}
 
-		System.out.println("\n\nYour program is terminated. Your program is done!\nIf you need information of the options, put H which is help option");
+		System.out.println("\n\nYour program is terminated. Your program is done!\nIf you need information of the options, put H which is help option!");
 	}
 
 	private boolean parseOptions(Options options, String[] args) {
