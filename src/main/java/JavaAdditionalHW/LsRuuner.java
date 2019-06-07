@@ -1,6 +1,7 @@
 package JavaAdditionalHW;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -27,76 +28,77 @@ public class LsRuuner {
 
 	void run(String[] args) {
 		Options options = createOptions();
-		
-		if(parseOptions(options, args)){
-			if (help){
+
+		if (parseOptions(options, args)) {
+			if (help) {
 				printHelp(options);
 				return;
 			}
 		}
-			
-			// path is required (necessary) data so no need to have a branch.
-			System.out.println("This is result of 'p' option");
-			System.out.println("You put this path: " + input_path);
-			
-			// TODO show the number of files in the path
-			
-			File file = new File(input_path);
+
+		// path is required (necessary) data so no need to have a branch.
+		System.out.println("This is result of 'p' option");
+		System.out.println("You put this path: " + input_path);
+
+		// TODO show the number of files in the path
+
+		File file = new File(input_path);
 		/*
 		 * System.out.println(file.getAbsolutePath());
 		 * System.out.println(file.getName());
 		 * System.out.println(file.listFiles().length);
 		 */
-			
-			if(listUnSorted) {
-				System.out.println("This is result of 'f' option");
-				System.out.println("This is list of unsorted files in the path");
-				
-				for(int i = 0; i < file.listFiles().length; i++) {
-					System.out.println(file.getName());
-				}
-				System.out.println(" ");
-				
-			}else if(listSorted) {
-				System.out.println("This is result of 'a' option");
-				System.out.println("This is list of sorted files in the path");
-				
-				for(int i = 0; i < file.listFiles().length; i++) {
-					System.out.println(file.getName());
-				}
-				System.out.println(" ");
-				
-			}else if(lastModified) {
-				System.out.println("This is result of 'm' option");
-				System.out.println("These are the date that the file is modifieded lastly in the path");
-				
-				
-				
-				for(int i = 0; i < file.listFiles().length; i++) {
-					
-					long currTimeModified = file.lastModified();
-					
-					if(currTimeModified > prevTimeModified);
-					
-					long prevTimeModified = currTimeModified;
-				}
-				
-				System.out.println(" ");
-			}else if(size) {
-				System.out.println("This is result of 's' option");
-				System.out.println("These are the size of files");
-				
-				for(int i = 0; i < file.listFiles().length; i++) {
-					System.out.println(file.length());
-				}
-				System.out.println(" ");
+
+		if (listUnSorted) {
+			System.out.println("This is result of 'f' option");
+			System.out.println("This is list of unsorted files in the path");
+			System.out.println(" ");
+
+			for (int i = 0; i < file.listFiles().length; i++) {
+				System.out.println(file.getName());
 			}
-				
-				System.out.println("Your program is terminated. Your program is done!");
+			System.out.println(" ");
+
+		} else if (listSorted) {
+			System.out.println("This is result of 'a' option");
+			System.out.println("This is list of sorted files in the path");
+			System.out.println(" ");
+
+			ArrayList<String> toSort = new ArrayList<String>();
+
+			for (int i = 0; i < file.listFiles().length; i++) {
+				toSort.add(file.getName());
+			}
+			System.out.println(" ");
+
+		} else if (lastModified) {
+			System.out.println("This is result of 'm' option");
+			System.out.println("These are the date that the file is modifieded lastly in the path");
+			System.out.println(" ");
+
+			for (int i = 0; i < file.listFiles().length; i++) {
+
+				long currTimeModified = file.lastModified();
+
+				if (currTimeModified > prevTimeModified)
+					;
+
+				long prevTimeModified = currTimeModified;
+			}
+
+			System.out.println(" ");
+		} else if (size) {
+			System.out.println("This is result of 't' option");
+			System.out.println("These are the size of files");
+			System.out.println(" ");
+
+			for (int i = 0; i < file.listFiles().length; i++) {
+				System.out.println(file.getName() + " " + file.length());
+			}
+			System.out.println(" ");
 		}
-	
-	private void printPermit() {
-		 
+
+		System.out.println("Your program is terminated. Your program is done!");
 	}
 
 	private boolean parseOptions(Options options, String[] args) {
@@ -110,8 +112,8 @@ public class LsRuuner {
 			listUnSorted = cmd.hasOption("l");
 			listSorted = cmd.hasOption("f");
 			lastModified = cmd.hasOption("t");
-			size = cmd.hasOption("s");
-			help = cmd.hasOption("h");
+			size = cmd.hasOption("h");
+			help = cmd.hasOption("H");
 
 		} catch (Exception e) {
 			printHelp(options);
@@ -124,55 +126,40 @@ public class LsRuuner {
 	// Definition Stage
 	private Options createOptions() {
 		Options options = new Options();
-		
+
 		// input
-				options.addOption(Option.builder("i").longOpt("Input_path")
-						.desc("Set a path of a directory or a file to display")
-						.hasArg()
-						.argName("Path name to display")
-						.required()
-						.build());
-		
+		options.addOption(
+				Option.builder("i").longOpt("Input_path").desc("Set a path of a directory or a file to display")
+						.hasArg().argName("Path name to display").required().build());
+
 		// absolute path
 		options.addOption(Option.builder("f").longOpt("information")
-						.desc("Display list of unsorted files in the directory")
-						.argName("absolute path name")
-						.build());
+				.desc("Display list of unsorted files in the directory").argName("absolute path name").build());
 
-		
 		// list all
-		options.addOption(Option.builder("a").longOpt("list")
-						.desc("Display list of sorted files in the directory")
-						.argName("list")
-						.build());
-		
+		options.addOption(Option.builder("a").longOpt("list").desc("Display list of sorted files in the directory")
+				.argName("list").build());
+
 		// last modified
 		options.addOption(Option.builder("t").longOpt("last_modified")
-				.desc("Display the date the file is modified lastly")
-				.argName("last modified")
-				.build());
-		
+				.desc("Display the date the file is modified lastly").argName("last modified").build());
+
 		// last modified
-		options.addOption(Option.builder("s").longOpt("size")
-				.desc("Display the size of files")
-				.argName("size")
-				.build()); 
-				
+		options.addOption(
+				Option.builder("h").longOpt("size").desc("Display the size of files").argName("size").build());
+
 		// add options by using OptionBuilder
-		options.addOption(Option.builder("h").longOpt("help")
-				        .desc("Help")
-				        .build());
-				
+		options.addOption(Option.builder("H").longOpt("Help").desc("Help").build());
+
 		return options;
 	}
-	
+
 	private void printHelp(Options options) {
 		// automatically generate the help statement
 		HelpFormatter formatter = new HelpFormatter();
 		String header = "ls CLI";
-		String footer ="";
+		String footer = "";
 		formatter.printHelp("CLIExample", header, options, footer, true);
-	} 
-
+	}
 
 }
