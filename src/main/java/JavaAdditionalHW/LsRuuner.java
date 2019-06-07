@@ -49,8 +49,8 @@ public class LsRuuner {
 		 */
 			
 			if(listUnSorted) {
-				System.out.println("This is result of 'a' option");
-				System.out.println("This is list of files in the path");
+				System.out.println("This is result of 'f' option");
+				System.out.println("This is list of unsorted files in the path");
 				
 				for(int i = 0; i < file.listFiles().length; i++) {
 					System.out.println(file.getName());
@@ -59,7 +59,7 @@ public class LsRuuner {
 				
 			}else if(listSorted) {
 				System.out.println("This is result of 'a' option");
-				System.out.println("This is list of files in the path");
+				System.out.println("This is list of sorted files in the path");
 				
 				for(int i = 0; i < file.listFiles().length; i++) {
 					System.out.println(file.getName());
