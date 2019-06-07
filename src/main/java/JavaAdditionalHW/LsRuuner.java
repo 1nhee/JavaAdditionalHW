@@ -88,22 +88,23 @@ public class LsRuuner {
 		} 
 		
 		if (lastModified) {
-			System.out.println("\nThis is result of 'm' option");
+			System.out.println("\nThis is result of 't' option");
 			System.out.println("These are the date that the file is modifieded lastly in the path\n");
 
-			ArrayList<Long> sortedTime = new ArrayList<Long>();
+			ArrayList<String> sortedTime = new ArrayList<String>();
 			
 			for (File toCheck : fileList) {
 				long currTimeModified = toCheck.lastModified();
-				sortedTime.add(currTimeModified);
+				String strVer = new String(Long.toString(currTimeModified));
+				sortedTime.add(strVer);
 			}
 			
 			Collections.sort(sortedTime);
 
-			for (long toCheckTime: sortedTime) {
+			for (int i = sortedTime.size()-1; i >= 0; i--) {
 				for (File toCheck : fileList) {
 					long currTimeModified = toCheck.lastModified();
-					if(toCheckTime == currTimeModified) {
+					if(Long.parseLong(sortedTime.get(i)) == currTimeModified) {
 						System.out.println(toCheck.getName());
 					}
 				}
@@ -113,7 +114,7 @@ public class LsRuuner {
 		} 
 		
 		if (size) {
-			System.out.println("\nThis is result of 't' option");
+			System.out.println("\nThis is result of 'h' option");
 			System.out.println("These are the size of files\n");
 
 			for (File toCheck : fileList) {
