@@ -12,8 +12,8 @@ import org.apache.commons.cli.Options;
 public class LsRuuner {
 
 	String input_path;
-	boolean list;
-	boolean information;
+	boolean listUnSorted;
+	boolean listSorted;
 	boolean lastModified;
 	boolean size;
 	boolean help;
@@ -95,7 +95,11 @@ public class LsRuuner {
 			}
 				
 				System.out.println("Your program is terminated. Your program is done!");
-		} 
+		}
+	
+	private void printPermit() {
+		 
+	}
 
 	private boolean parseOptions(Options options, String[] args) {
 		CommandLineParser parser = new DefaultParser();
@@ -105,8 +109,8 @@ public class LsRuuner {
 			CommandLine cmd = parser.parse(options, args);
 
 			input_path = cmd.getOptionValue("i");
-			information = cmd.hasOption("l");
-			list = cmd.hasOption("a");
+			listUnSorted = cmd.hasOption("l");
+			listSorted = cmd.hasOption("f");
 			lastModified = cmd.hasOption("t");
 			size = cmd.hasOption("s");
 			help = cmd.hasOption("h");
@@ -132,15 +136,15 @@ public class LsRuuner {
 						.build());
 		
 		// absolute path
-		options.addOption(Option.builder("l").longOpt("information")
-						.desc("display  displaying Unix file types, permissions, number of hard links, owner, group, size, last-modified date and filename")
+		options.addOption(Option.builder("f").longOpt("information")
+						.desc("Display list of unsorted files in the directory")
 						.argName("absolute path name")
 						.build());
 
 		
 		// list all
 		options.addOption(Option.builder("a").longOpt("list")
-						.desc("Display list of files in the directory")
+						.desc("Display list of sorted files in the directory")
 						.argName("list")
 						.build());
 		
