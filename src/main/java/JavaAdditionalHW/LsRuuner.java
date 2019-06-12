@@ -20,7 +20,7 @@ public class LsRuuner {
 	boolean listSorted;
 	boolean lastModified;
 	boolean size;
-	boolean help;
+	boolean help; 
 
 	public static void main(String[] args) {
 
