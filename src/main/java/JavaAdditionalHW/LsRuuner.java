@@ -116,10 +116,26 @@ public class LsRuuner {
 		if (size) {
 			System.out.println("\nThis is result of 'h' option");
 			System.out.println("These are the size of files\n");
-
+			
+			ArrayList<String> sortedSize = new ArrayList<String>();
+			
 			for (File toCheck : fileList) {
-				System.out.println("The size of this file \'" + toCheck.getName() + "\' is " + toCheck.length());
+				long currSize = toCheck.length();
+				String strVer = new String(Long.toString(currSize));
+				sortedSize.add(strVer);
 			}
+			
+			Collections.sort(sortedSize);
+
+			for (int i = sortedSize.size()-1; i >= 0; i--) {
+				for (File toCheck : fileList) {
+					long currSize = toCheck.length();
+					if(Long.parseLong(sortedSize.get(i)) == currSize) {
+						System.out.println(toCheck.getName());
+					}
+				}
+			}
+			
 			System.out.println(" ");
 		}
 
