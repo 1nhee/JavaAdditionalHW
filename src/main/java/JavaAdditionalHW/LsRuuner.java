@@ -67,7 +67,7 @@ public class LsRuuner {
 		}
 		
 		if (!input_path.isEmpty()) {
-			System.out.println(" ");
+			System.out.println(" "); 
 
 			for (String toPrint : fileNames) {
 				System.out.println(toPrint);
