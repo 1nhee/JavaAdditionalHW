@@ -31,6 +31,10 @@ public class LsRuuner {
 
 	void run(String[] args) {
 		Options options = createOptions();
+		
+		if(args.length > 2) {
+			System.out.println("Put only one option!");
+		}
 
 		if (parseOptions(options, args)) {
 			if (help) {
@@ -39,9 +43,11 @@ public class LsRuuner {
 			}
 		}
 
-		// path is required (necessary) data so no need to have a branch.
-		System.out.println("This is result of 'i' option");
-		System.out.println("You put this path: " + input_path +"\n");
+		/*
+		 * // path is required (necessary) data so no need to have a branch.
+		 * System.out.println("This is result of 'i' option");
+		 * System.out.println("You put this path: " + input_path +"\n");
+		 */
 
 		// TODO show the number of files in the path
 
@@ -59,6 +65,17 @@ public class LsRuuner {
 		    fileNames.add(tempFileName);
 		  }
 		}
+		
+		if (!input_path.isEmpty()) {
+			System.out.println(" ");
+
+			for (String toPrint : fileNames) {
+				System.out.println(toPrint);
+			}
+			
+			System.out.println(" ");
+
+		} 
 
 		if (listUnSorted) {
 			System.out.println("\nThis is result of 'f' option");
@@ -149,12 +166,12 @@ public class LsRuuner {
 
 			CommandLine cmd = parser.parse(options, args);
 
-			input_path = cmd.getOptionValue("i");
+			input_path = cmd.getOptionValue("ls");
 			listUnSorted = cmd.hasOption("f");
 			listSorted = cmd.hasOption("a");
 			lastModified = cmd.hasOption("t");
 			size = cmd.hasOption("h");
-			help = cmd.hasOption("H");
+			help = cmd.hasOption("i");
 
 		} catch (Exception e) {
 			printHelp(options);
@@ -170,7 +187,7 @@ public class LsRuuner {
 
 		// input
 		options.addOption(
-				Option.builder("i").longOpt("Input_path").desc("Set a path of a directory or a file to display")
+				Option.builder("ls").longOpt("Input_path").desc("Set a path of a directory or a file to display")
 						.hasArg().argName("Path name to display").required().build());
 
 		// absolute path
@@ -190,7 +207,7 @@ public class LsRuuner {
 				Option.builder("h").longOpt("size").desc("Display the size of files").argName("size").build());
 
 		// add options by using OptionBuilder
-		options.addOption(Option.builder("H").longOpt("Help").desc("Help").build());
+		options.addOption(Option.builder("i").longOpt("Help").desc("Help").build());
 
 		return options;
 	}
