@@ -32,6 +32,11 @@ public class LsRuuner {
 	void run(String[] args) {
 		Options options = createOptions();
 		
+		if (input_path.isEmpty()) {
+			System.out.println("You didn't put input path! Put it first!");
+			exit(1);
+		}
+		
 		if(args.length > 2) {
 			System.out.println("Put only one option!");
 		}
@@ -66,12 +71,6 @@ public class LsRuuner {
 		  }
 		}
 		
-		if (input_path.isEmpty()) {
-			System.out.println("You didn't put input path! Put it first!");
-			exit(1);
-		}
-			
-
 		if (listUnSorted) {
 			System.out.println("\nThis is result of 'f' option");
 			System.out.println("This is list of unsorted files in the path\n");
